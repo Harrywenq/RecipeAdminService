@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <svg class="app-logo" width="48" height="48" viewBox="0 0 100 100">
+                <polygon points="50,5 93,27 93,73 50,95 7,73 7,27" fill="#FF5722" />
+                <text x="20" y="65" font-size="40" fill="white" font-weight="600">H</text>
+                <text x="52" y="65" font-size="40" fill="white" font-weight="600">Q</text>
+            </svg>
+            <span class="logo-title">Food Recipes</span>
+        </div>
+        <nav class="nav-menu">
+            <a routerLink="/recipe-management" routerLinkActive="active"><i class="icon">🍲</i> Quản lý Công thức</a>
+            <a routerLink="/post-management" routerLinkActive="active"><i class="icon">📝</i> Quản lý bài viết</a>
+            <a routerLink="/category-list" routerLinkActive="active"><i class="icon">📂</i> Quản lý danh mục</a>
+            <a routerLink="/tag-list" routerLinkActive="active"><i class="icon">🏷️</i> Quản lý tag</a>
+            <a routerLink="/user-list" routerLinkActive="active"><i class="icon">👤</i> Quản lý người dùng</a>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <header class="top-header">
+            <!-- Nếu đã đăng nhập -->
+            <div *ngIf="userResponse; else loginButtonTemplate" class="user-info" [ngbPopover]="popoverContent"
+                triggers="click" popoverTitle="Tài khoản">
+                <span class="avatar">👤</span>
+                <span class="username">{{ userResponse?.displayName }}</span>
+                <svg class="dropdown-arrow" width="16" height="16" fill="currentColor">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+
+            <!-- Template hiển thị khi chưa đăng nhập -->
+            <ng-template #loginButtonTemplate>
+                <a class="login-button" routerLink="/login">Đăng nhập lại</a>
+            </ng-template>
+
+            <!-- Nội dung popover -->
+            <ng-template #popoverContent>
+                <div class="popover-menu">
+                    <a routerLink="/user-details">Thông tin tài khoản</a>
+                    <a href="#" (click)="handleItemClick(1)">Đăng xuất</a>
+                </div>
+            </ng-template>
+        </header>
+
+        <!-- Main router view -->
+        <main class="dashboard-content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

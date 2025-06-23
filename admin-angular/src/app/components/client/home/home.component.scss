@@ -1,0 +1,678 @@
+/* Color Palette - Bảng màu mới để trông đáng yêu và chuyên nghiệp hơn */
+// Màu nền tổng thể - nhẹ nhàng, ấm áp
+$background-light: #fdfaf7; // Màu trắng ngà, ấm áp hơn #f9f9f9
+
+// Màu chính (primary brand color) - giữ tông cam nhưng có thể làm dịu đi một chút
+$primary-brand-color: #FF7043; // Cam đào (Salmon-like), ấm áp và thân thiện
+$primary-brand-color-dark: darken($primary-brand-color, 10%);
+
+// Màu phụ cho các điểm nhấn hoặc button thứ cấp (nếu có)
+$secondary-accent-color: #66BB6A; // Xanh lá cây tươi mát, dễ chịu
+
+// Màu chữ và icon
+$text-dark: #333333; // Đen xám đậm, dễ đọc
+$text-medium: #6c757d; // Xám trung tính
+$text-light: #ffffff; // Trắng
+
+// Màu đường viền và bóng đổ
+$border-light: #e0e0e0;
+$shadow-light: rgba(0, 0, 0, 0.08);
+$shadow-medium: rgba(0, 0, 0, 0.15);
+
+// Định nghĩa lại biến YouTube Red ở đây để đảm bảo nó có thể truy cập được
+$youtube-red: #ff0000;
+
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; // Thêm font dự phòng
+  background-color: $background-light; // Áp dụng màu nền ấm áp
+  min-height: 100vh;
+  line-height: 1.6; // Cải thiện khả năng đọc
+  color: $text-dark; // Đặt màu chữ mặc định
+}
+
+/* Page Title (Quản lý công thức) */
+.page-title {
+  text-align: center;
+  margin: 40px auto 50px; // Tăng khoảng cách
+  color: $text-dark;
+
+  h1 {
+    font-size: 2.8em; // Kích thước lớn hơn
+    font-weight: 700;
+    color: $primary-brand-color; // Vẫn dùng màu cam chính
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.08); // Bóng đổ nhẹ, tinh tế hơn
+  }
+}
+
+/* Hero Image Section */
+.hero-image-container {
+  position: relative;
+  width: 100%;
+  height: 400px; // Tăng chiều cao để tạo sự ấn tượng
+  overflow: hidden;
+  margin-bottom: 50px; // Khoảng cách lớn hơn với phần nội dung bên dưới
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f0f0f0; // Fallback background
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.65); // Làm tối ảnh hơn một chút để văn bản nổi bật
+}
+
+.hero-text {
+  position: absolute;
+  color: $text-light;
+  z-index: 1;
+  max-width: 800px; // Giới hạn chiều rộng văn bản
+  padding: 0 20px;
+
+  h2 {
+    font-size: 3.5em; // Lớn hơn nữa
+    font-weight: 800; // Đậm hơn
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); // Bóng đổ rõ nét
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 1.8em; // Lớn hơn
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Main Content Container */
+.youtube-container {
+  max-width: 1300px; // Giảm bớt max-width để không gian thoáng hơn
+  margin: 30px auto 60px; // Tăng khoảng cách trên và dưới
+  padding: 30px; // Tăng padding bên trong container
+  background-color: $text-light; // Màu trắng tinh khiết
+  border-radius: 15px; // Bo góc mềm mại hơn
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07); // Bóng đổ rõ ràng nhưng nhẹ nhàng
+  font-family: 'Roboto', Arial, sans-serif;
+  color: $text-dark;
+  transform: translateY(0); // Khởi tạo để dùng transition
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+
+  &:hover {
+    transform: translateY(-5px); // Nổi nhẹ lên khi hover
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+/* YouTube Top Bar (Search & Categories & New Button) */
+.youtube-top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid $border-light; // Dùng màu border mới
+  margin-bottom: 40px; // Tăng khoảng cách dưới
+}
+
+.youtube-categories {
+  flex-shrink: 0;
+
+  .youtube-category-select {
+    padding: 10px 18px; // Tăng padding
+    border: 1px solid $border-light;
+    border-radius: 8px; // Bo góc mềm mại
+    background-color: white;
+    font-size: 1.05em; // Kích thước chữ lớn hơn
+    color: $text-dark;
+    cursor: pointer;
+    outline: none;
+    appearance: none; // Bỏ style mặc định của select box
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); // Icon mũi tên tùy chỉnh
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); // Bóng đổ nhẹ
+
+    &:hover {
+      border-color: $primary-brand-color; // Đổi màu viền khi hover
+    }
+
+    &:focus {
+      border-color: $primary-brand-color;
+      box-shadow: 0 0 0 3px lighten($primary-brand-color, 30%); // Hiệu ứng focus nhẹ
+    }
+  }
+}
+
+.Youtube-area {
+  flex-grow: 1;
+  display: flex;
+  border: 1px solid $border-light;
+  border-radius: 8px; // Bo góc mềm mại
+  max-width: 650px; // Tăng chiều rộng
+  background-color: white;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+
+  &:focus-within {
+    border-color: $primary-brand-color;
+    box-shadow: 0 0 0 3px lighten($primary-brand-color, 30%), inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.Youtube-input {
+  flex-grow: 1;
+  padding: 10px 15px; // Tăng padding
+  border: none;
+  font-size: 1.1em;
+  outline: none;
+  background: transparent;
+  color: $text-dark;
+
+  &::placeholder {
+    color: $text-medium;
+    opacity: 0.8;
+  }
+}
+
+.Youtube-button {
+  background-color: lighten($primary-brand-color, 45%); // Nền nút tìm kiếm nhạt hơn
+  border: none;
+  padding: 8px 15px;
+  border-radius: 0 8px 8px 0; // Bo góc chỉ bên phải
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary-brand-color; // Icon màu cam chính
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: lighten($primary-brand-color, 40%);
+  }
+
+  svg {
+    stroke-width: 2;
+    width: 22px; // Kích thước icon lớn hơn
+    height: 22px;
+  }
+}
+
+/* Nút Yêu thích (Favorite Button) - Thêm style nổi bật hơn */
+.youtube-favorite-button {
+  background-color: transparent;
+  color: $text-medium; // Màu icon và chữ mặc định
+  border: 1px solid $border-light;
+
+  svg {
+    fill: none; // Đảm bảo icon không bị tô màu mặc định
+    stroke: $text-medium;
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    background-color: #ffebee; // Nền đỏ nhạt khi hover
+    color: $youtube-red; // Màu đỏ khi hover
+    border-color: $youtube-red;
+
+    svg {
+      fill: $youtube-red; // Tô màu icon đỏ
+      stroke: $youtube-red;
+      transform: scale(1.1); // Phóng to icon một chút
+    }
+  }
+}
+
+/* Nút Xem ngay (View Button) */
+.youtube-view-button {
+  background-color: $primary-brand-color; // Màu cam chính
+  color: $text-light; // Chữ trắng
+  border: none;
+  box-shadow: 0 4px 10px rgba($primary-brand-color, 0.3);
+
+  &:hover {
+    background-color: $primary-brand-color-dark; // Đậm hơn khi hover
+    box-shadow: 0 6px 15px rgba($primary-brand-color, 0.4);
+    transform: translateY(-2px);
+  }
+
+  svg {
+    fill: $text-light;
+    stroke: $text-light;
+  }
+}
+
+/* Nút Tạo mới công thức - Làm nổi bật hơn */
+.create-recipe-button {
+  background-color: $secondary-accent-color; // Dùng màu xanh lá cây tươi mát
+  color: white;
+  padding: 12px 25px; // Tăng padding
+  border-radius: 8px; // Bo góc mềm mại hơn
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px; // Tăng khoảng cách
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 5px 15px rgba($secondary-accent-color, 0.3);
+  border: none; // Bỏ viền
+
+  &:hover {
+    background-color: darken($secondary-accent-color, 8%);
+    transform: translateY(-3px); // Nhấc lên rõ hơn
+    box-shadow: 0 8px 20px rgba($secondary-accent-color, 0.4);
+  }
+
+  svg {
+    stroke-width: 2;
+    width: 22px; // Kích thước icon lớn hơn
+    height: 22px;
+  }
+}
+
+/* App Message (Error/Success) */
+.app-message {
+  padding: 15px; // Tăng padding
+  border-radius: 8px; // Bo góc mềm mại
+  margin-bottom: 30px; // Tăng khoảng cách
+  text-align: center;
+  font-weight: 600; // Đậm hơn
+  font-size: 1em; // Kích thước chữ lớn hơn
+
+  &.success-message {
+    background-color: #e8f5e9; // Xanh lá nhạt hơn
+    color: #2e7d32; // Xanh lá đậm hơn
+    border: 1px solid #a5d6a7;
+  }
+
+  &.error-message {
+    background-color: #ffebee; // Đỏ nhạt hơn
+    color: #c62828; // Đỏ đậm hơn
+    border: 1px solid #ef9a9a;
+  }
+}
+
+/* Recipes Grid */
+.youtube-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px; // Tăng khoảng cách giữa các card
+  margin-bottom: 50px;
+}
+
+.youtube-recipe-card {
+  background-color: white;
+  border-radius: 12px; // Bo góc nhiều hơn
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); // Bóng đổ nhẹ nhàng
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out; // Hiệu ứng mượt mà
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px); // Nổi bật hơn khi hover
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); // Bóng đổ rõ hơn
+  }
+}
+
+.youtube-thumbnail-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* 16:9 Aspect Ratio */
+  background-color: #f0f0f0;
+}
+
+.youtube-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-card-details {
+  padding: 15px 20px; // Tăng padding
+}
+
+.youtube-recipe-title {
+  font-size: 1.2em; // Kích thước chữ lớn hơn
+  font-weight: 600; // Đậm hơn
+  color: $text-dark;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style cho Tag mới */
+.recipe-tag {
+  display: inline-block;
+  /* Để nó hoạt động như một khối và có padding/margin */
+  background-color: lighten($primary-brand-color, 35%);
+  /* Màu nền cho tag */
+  color: $primary-brand-color-dark;
+  /* Màu chữ cho tag */
+  padding: 4px 8px;
+  border-radius: 5px;
+  /* Bo góc nhẹ */
+  font-size: 0.85em;
+  /* Kích thước chữ nhỏ hơn */
+  font-weight: 500;
+  margin-bottom: 10px;
+  /* Khoảng cách với phần meta bên dưới */
+  text-transform: uppercase;
+  /* Chuyển thành chữ in hoa cho rõ ràng */
+  letter-spacing: 0.5px;
+  /* Khoảng cách giữa các chữ cái */
+}
+
+
+.youtube-recipe-meta {
+  font-size: 0.95em; // Kích thước chữ lớn hơn một chút
+  color: $text-medium;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px; // Tăng khoảng cách
+}
+
+.youtube-channel-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    color: $text-medium;
+  }
+}
+
+.youtube-card-actions {
+  border-top: 1px solid $border-light;
+  padding-top: 15px; // Tăng padding
+  display: flex;
+  justify-content: space-around;
+  gap: 15px; // Tăng khoảng cách giữa các nút
+}
+
+.youtube-action-button {
+  background: none;
+  border: none;
+  padding: 10px 12px; // Tăng padding
+  border-radius: 6px; // Bo góc mềm mại
+  cursor: pointer;
+  font-size: 0.95em; // Kích thước chữ lớn hơn một chút
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px; // Tăng khoảng cách
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  color: $text-medium;
+  flex-grow: 1;
+  justify-content: center;
+
+  &:hover {
+    background-color: lighten($primary-brand-color, 45%); // Nền nhạt hơn
+    color: $primary-brand-color; // Màu chữ chính
+  }
+
+  svg {
+    width: 20px; // Icon lớn hơn
+    height: 20px;
+    stroke-width: 1.8; // Độ dày nét vẽ
+  }
+}
+
+
+/* Pagination Section */
+.youtube-pagination-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px; // Tăng khoảng cách
+  margin-bottom: 30px;
+}
+
+.youtube-pagination-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border: 1px solid $border-light;
+  border-radius: 8px; // Bo góc mềm mại hơn
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); // Bóng đổ nhẹ
+}
+
+.youtube-pagination-list .page-item {
+  .page-link {
+    display: block;
+    padding: 12px 18px; // Tăng padding
+    color: $text-dark;
+    text-decoration: none;
+    border-right: 1px solid $border-light;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    font-size: 1em; // Kích thước chữ lớn hơn
+
+    &:hover {
+      background-color: $primary-brand-color; // Đổi màu nền khi hover
+      color: $text-light; // Chữ trắng
+    }
+  }
+
+  &:last-child .page-link {
+    border-right: none;
+  }
+
+  &.active .page-link {
+    background-color: $primary-brand-color; // Màu chính
+    color: white;
+    font-weight: 600; // Đậm hơn
+    pointer-events: none;
+  }
+
+  &.disabled .page-link {
+    color: $text-medium;
+    cursor: not-allowed;
+    background-color: lighten($background-light, 2%); // Nền nhạt hơn
+    opacity: 0.7;
+  }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .hero-image-container {
+    height: 350px;
+  }
+
+  .hero-text h2 {
+    font-size: 3em;
+  }
+
+  .hero-text p {
+    font-size: 1.5em;
+  }
+
+  .youtube-container {
+    max-width: 1100px;
+    padding: 25px;
+  }
+
+  .page-title h1 {
+    font-size: 2.2em;
+  }
+}
+
+@media (max-width: 992px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .youtube-container {
+    padding: 20px;
+    margin: 25px auto 50px;
+  }
+
+  .page-title h1 {
+    font-size: 1.8em;
+  }
+
+  .hero-image-container {
+    height: 300px;
+    margin-bottom: 40px;
+  }
+
+  .hero-text h2 {
+    font-size: 2.5em;
+  }
+
+  .hero-text p {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .youtube-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .Youtube-area {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .youtube-categories {
+    width: 100%;
+
+    .youtube-category-select {
+      width: 100%;
+    }
+  }
+
+  .youtube-recipe-title {
+    font-size: 1em;
+  }
+
+  .youtube-action-button {
+    font-size: 0.85em;
+    padding: 8px 10px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .create-recipe-button {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+
+  .page-title h1 {
+    font-size: 1.6em;
+    margin: 25px auto 35px;
+  }
+
+  .hero-image-container {
+    height: 250px;
+    margin-bottom: 30px;
+  }
+
+  .hero-text h2 {
+    font-size: 2em;
+  }
+
+  .hero-text p {
+    font-size: 1em;
+  }
+
+  .youtube-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .youtube-recipes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .youtube-container {
+    padding: 10px;
+    margin: 15px auto 40px;
+  }
+
+  .youtube-top-bar {
+    padding: 10px 0;
+  }
+
+  .Youtube-input {
+    font-size: 1em;
+  }
+
+  .youtube-recipe-card {
+    padding-bottom: 10px;
+  }
+
+  .youtube-thumbnail-container {
+    padding-bottom: 56.25%;
+  }
+
+  .youtube-recipe-title {
+    font-size: 1.1em;
+  }
+
+  .page-title h1 {
+    font-size: 1.4em;
+  }
+
+  .hero-image-container {
+    height: 180px;
+  }
+
+  .hero-text h2 {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+  }
+
+  .hero-text p {
+    font-size: 0.9em;
+  }
+
+  .youtube-pagination-list .page-link {
+    padding: 10px 12px;
+    font-size: 0.9em;
+  }
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+  font-weight: 500;
+}

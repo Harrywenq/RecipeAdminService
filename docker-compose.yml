@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mysql:8
+    container_name: mysql-db
+    environment: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: securityjwt
+    ports:
+      - "3306:3306"
+
+  backend:
+    build: ./JwtObjectService
+    container_name: backend-service
+    ports:
+      - "8090:8090"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/securityjwt
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 
+
+  frontend:
+    build: ./recipeangular
+    container_name: angular-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+  # frontend-admin:
+  #   build: ./admin-angular
+  #   container_name: angular-frontend-admin
+  #   ports:
+  #     - "4300:80"  
+  #   depends_on:
+  #     - backend
+
+  chatbot:
+    build: ./chatbotai
+    container_name: chatbot-service
+    ports:
+      - "8501:8501"

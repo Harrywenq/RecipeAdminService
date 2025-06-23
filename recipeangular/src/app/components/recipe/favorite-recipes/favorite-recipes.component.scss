@@ -1,0 +1,329 @@
+/* YouTube Color Palette (re-used from home component) */
+$youtube-red: #ff0000;
+$youtube-dark: #212121;
+$youtube-light-gray: #f9f9f9;
+$youtube-medium-gray: #aaaaaa;
+$youtube-border-gray: #e0e0e0;
+$text-primary: #030303;
+$text-secondary: #606060;
+
+.youtube-container-fav {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 20px;
+  background-color: $youtube-light-gray;
+  font-family: 'Roboto', Arial, sans-serif;
+  color: $text-primary;
+}
+
+.youtube-fav-header {
+  padding: 20px 0;
+  border-bottom: 1px solid $youtube-border-gray;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center; // Căn giữa tiêu đề
+}
+
+.youtube-fav-title {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: $text-primary;
+  display: flex;
+  align-items: center;
+  gap: 15px; // Khoảng cách giữa icon và chữ
+
+  svg {
+    color: $youtube-red; // Màu đỏ cho icon tiêu đề
+  }
+}
+
+/* App Message (Error/Info) - Re-using styles from home component */
+.app-message {
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.5;
+
+  &.error-message {
+    background-color: #ffe6e6; // Lighter red
+    color: #b71c1c; // Darker red
+    border: 1px solid #ffcdd2;
+  }
+
+  p {
+    margin-bottom: 15px; // Khoảng cách giữa text và button
+  }
+}
+
+.youtube-info-message {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: $text-secondary;
+  margin-top: 20px;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; // Khoảng cách giữa icon/text
+  font-weight: 400; // Tránh quá đậm
+
+  svg {
+    color: $youtube-medium-gray; // Màu icon cho thông báo trống/loading
+    opacity: 0.8;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+/* Recipes Grid (re-using styles from home component) */
+.youtube-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  /* Responsive grid */
+  gap: 25px;
+  /* Space between cards */
+  margin-bottom: 40px;
+}
+
+.youtube-recipe-card {
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.youtube-thumbnail-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
+  background-color: #f0f0f0;
+}
+
+.youtube-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-card-details {
+  padding: 12px 15px;
+}
+
+.youtube-recipe-title {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: $text-primary;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.youtube-recipe-meta {
+  font-size: 0.9em;
+  color: $text-secondary;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.youtube-channel-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    color: $youtube-medium-gray;
+  }
+}
+
+.youtube-card-actions {
+  border-top: 1px solid $youtube-border-gray;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.youtube-action-button {
+  background: none;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s ease;
+  color: $text-secondary;
+
+  &:hover {
+    background-color: $youtube-border-gray;
+  }
+
+  &.primary-action {
+    // Dùng cho nút "Quay lại" trong thông báo lỗi
+    background-color: $youtube-red;
+    color: white;
+
+    &:hover {
+      background-color: darken($youtube-red, 10%);
+    }
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5;
+  }
+}
+
+.youtube-remove-button {
+  color: #a83f39; // Màu đỏ đậm hơn cho nút bỏ yêu thích
+
+  svg {
+    stroke: #a83f39;
+  }
+
+  &:hover {
+    background-color: rgba(168, 63, 57, 0.1);
+  }
+}
+
+.youtube-view-button {
+  color: $text-secondary;
+
+  svg {
+    color: $youtube-red;
+  }
+}
+
+
+/* Responsive Adjustments (re-using from home component) */
+@media (max-width: 1200px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .youtube-container-fav {
+    padding: 0 15px;
+  }
+
+  .youtube-fav-title {
+    font-size: 1.8em;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .youtube-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .youtube-recipe-title {
+    font-size: 1em;
+  }
+
+  .youtube-action-button {
+    font-size: 0.85em;
+    padding: 6px 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .youtube-fav-title {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 576px) {
+  .youtube-recipes-grid {
+    grid-template-columns: 1fr;
+    /* Single column layout for very small screens */
+  }
+
+  .youtube-container-fav {
+    padding: 0 10px;
+  }
+
+  .youtube-recipe-card {
+    padding-bottom: 10px;
+  }
+
+  .youtube-thumbnail-container {
+    padding-bottom: 56.25%;
+  }
+
+  .youtube-recipe-title {
+    font-size: 1.1em;
+  }
+
+  .youtube-fav-title {
+    font-size: 1.3em;
+  }
+
+  .youtube-action-button {
+    flex-grow: 1; // Cho phép button giãn ra
+    justify-content: center; // Căn giữa nội dung button
+  }
+
+  .youtube-card-actions {
+    flex-direction: column; // Xếp chồng nút trên mobile
+  }
+}
+
+.error-message {
+  background-color: #ffe0e0;
+  /* Nền đỏ nhạt */
+  color: #d32f2f;
+  /* Chữ đỏ đậm */
+  border: 1px solid #d32f2f;
+  /* Viền đỏ */
+}
+
+/* Style for success messages */
+.success-message {
+  background-color: #e6ffe6;
+  /* Nền xanh nhạt */
+  color: #388e3c;
+  /* Chữ xanh đậm */
+  border: 1px solid #388e3c;
+  /* Viền xanh */
+}

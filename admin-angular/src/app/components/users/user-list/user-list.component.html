@@ -1,0 +1,58 @@
+<div style="display: flex;">
+    <app-header></app-header>
+    <div class="user-list-wrapper">
+        <div class="header-section">
+            <h1><i class="fas fa-users-line"></i> Danh sách người dùng</h1>
+            <div class="search-box-container">
+                <input type="text" [(ngModel)]="searchDisplayName" placeholder="Tìm kiếm tên hiển thị..."
+                    (keyup.enter)="onSearch()" class="search-input" />
+                <button (click)="onSearch()" class="search-button">
+                    <i class="fas fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="loading" class="info-card loading-card">
+            <i class="fas fa-spinner fa-spin"></i> Đang tải những người bạn dễ thương...
+        </div>
+
+        <div *ngIf="errorMessage" class="info-card error-card">
+            <i class="fas fa-triangle-exclamation"></i> Oops! Có lỗi xảy ra rồi:
+            {{ errorMessage }}
+        </div>
+
+        <div *ngIf="!loading && !errorMessage && users.length === 0" class="info-card no-data-card">
+            <i class="fas fa-face-sad-tear"></i> Không tìm thấy người bạn nào. Thử tìm
+            với tên khác nhé!
+        </div>
+
+        <div *ngIf="!loading && !errorMessage && users.length > 0" class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Tên hiển thị</th>
+                        <th>Ngày sinh</th>
+                        <th>Vai trò</th>
+                        <th class="action-column">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users" class="user-row">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.displayName }}</td>
+                        <td>{{ user.dateOfBirth | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ user.roleName || 'Chưa có vai trò' }}</td>
+                        <td class="action-column">
+                            <button class="action-btn delete-btn" (click)="confirmDelete(user.id, user.displayName)">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

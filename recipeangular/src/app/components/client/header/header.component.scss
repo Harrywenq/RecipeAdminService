@@ -1,0 +1,371 @@
+/* Color Palette & Variables */
+$primary-color: #FF5722; // Màu cam nổi bật cho thương hiệu
+$secondary-color: #4CAF50; // Màu xanh lá cho nút (ví dụ: đăng nhập)
+$background-dark: #212121; // Nền header đậm
+$text-light: #f5f5f5; // Chữ sáng
+$text-active: #ffffff; // Chữ khi active
+$text-hover: #ffffff; // Chữ khi hover
+$border-color: #333; // Đường viền nhẹ (cho mobile menu)
+$popover-bg: #333; // Nền popover
+$popover-item-hover: #555; // Hover popover item
+$dropdown-arrow-color: #ccc; // Màu mũi tên dropdown
+
+/* Global Styles for Header */
+.app-header {
+  position: sticky;
+  background-color: $background-dark;
+  padding: 15px 0;
+  /* Tăng padding trên dưới để tạo không gian */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000; // Đảm bảo header luôn ở trên cùng
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px; // Giới hạn chiều rộng nội dung header
+  margin: 0 auto;
+  padding: 0 30px;
+  /* Tăng padding ngang để nội dung không sát viền */
+}
+
+/* Logo and App Title */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 15px;
+  /* Tăng khoảng cách giữa logo và tên ứng dụng */
+  cursor: pointer;
+}
+
+.app-logo {
+  flex-shrink: 0; // Đảm bảo logo không bị co nhỏ
+
+  polygon {
+    fill: $primary-color; // Màu cam nổi bật cho logo
+  }
+
+  text {
+    fill: $text-active;
+  }
+}
+
+.app-title {
+  color: $text-active;
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  white-space: nowrap; // Ngăn không cho chữ xuống dòng
+}
+
+/* Navbar Toggler for Mobile */
+.navbar-toggler-custom {
+  display: none; // Mặc định ẩn trên desktop, chỉ hiện trên mobile
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px; // Padding cho nút click
+
+  .toggler-icon-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: $text-light;
+    margin: 5px 0; // Khoảng cách giữa các gạch của icon
+    transition: all 0.3s ease;
+  }
+
+  // Animation cho icon khi mở/đóng (cần JS để kích hoạt class .collapsed)
+  &[aria-expanded="true"] .toggler-icon-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  &[aria-expanded="true"] .toggler-icon-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  &[aria-expanded="true"] .toggler-icon-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+
+/* Navigation Links Container */
+.nav-links-container {
+  display: flex;
+  flex-grow: 1; // Cho phép chiếm hết không gian còn lại
+  justify-content: center; // **Căn giữa toàn bộ các nhóm nav**
+  align-items: center;
+
+  // Override Bootstrap display: none khi trên desktop
+  &.collapse:not(.show) {
+    display: flex !important;
+  }
+}
+
+/* New wrapper for main nav to handle centering */
+.main-nav-wrapper {
+  flex-grow: 1; // Cho phép wrapper này chiếm không gian để đẩy nhóm user-auth-nav sang phải
+  display: flex;
+  justify-content: center; // **Căn giữa các mục trong main-nav-left**
+}
+
+/* Main Navigation (Left) */
+.main-nav-left {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px; // Tăng khoảng cách giữa các mục menu chính
+}
+
+.nav-item {
+  position: relative; // Cần thiết cho popover và hiệu ứng gạch chân
+}
+
+.nav-link {
+  color: $text-light;
+  text-decoration: none;
+  padding: 10px 0;
+  /* Tăng padding trên dưới của link */
+  font-size: 1.05em;
+  font-weight: 500;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative; // Cho hiệu ứng gạch chân
+  display: flex;
+  align-items: center;
+  gap: 5px; // Khoảng cách giữa text và icon (nếu có)
+
+  &:hover {
+    color: $text-hover;
+
+    &::after {
+      // Hiệu ứng gạch chân khi hover
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: $text-active;
+    font-weight: 600;
+
+    &::after {
+      // Hiệu ứng gạch chân cho link active
+      width: 100%;
+      background-color: $primary-color; // Màu cam cho active
+    }
+  }
+
+  &::after {
+    // Base cho hiệu ứng gạch chân
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px; // Vị trí gạch chân so với text
+    width: 0;
+    height: 3px;
+    background-color: $text-hover; // Màu mặc định của gạch chân hover
+    transition: width 0.3s ease;
+  }
+}
+
+.dropdown-arrow {
+  color: $dropdown-arrow-color;
+  transition: transform 0.3s ease;
+
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}
+
+/* User/Auth Navigation (Right) */
+.user-auth-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  // margin-left: auto; // **Bỏ margin-left: auto; ở đây vì main-nav-wrapper đã xử lý flex-grow**
+  gap: 20px; // Khoảng cách giữa các item trong nhóm tài khoản
+}
+
+.user-profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px; // Khoảng cách giữa avatar và tên
+  background-color: rgba(255, 255, 255, 0.1); // Nền mờ nhẹ
+  padding: 10px 15px;
+  /* Tăng padding nút tài khoản */
+  border-radius: 25px; // Bo tròn hơn
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.user-avatar-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: $primary-color; // Màu cam cho avatar placeholder
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; // Màu icon trong avatar
+  flex-shrink: 0; // Đảm bảo avatar không bị co
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.auth-link {
+  background-color: $secondary-color; // Màu xanh lá cho nút đăng nhập
+  padding: 10px 20px;
+  /* Tăng padding nút đăng nhập */
+  border-radius: 25px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: darken($secondary-color, 10%);
+
+    &::after {
+      width: 0;
+    }
+
+    // Vô hiệu hóa underline cho nút
+  }
+}
+
+/* Custom Popover Styling (for NgbPopover) */
+.popover-list-custom {
+  background-color: $popover-bg;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  padding: 10px 0;
+  min-width: 180px;
+
+  .popover-item {
+    display: block;
+    padding: 10px 15px;
+    color: $text-light;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $popover-item-hover;
+      color: $text-active;
+    }
+
+    &.logout-link {
+      color: #FF6B6B; // Màu đỏ nhẹ cho link đăng xuất
+
+      &:hover {
+        background-color: rgba(255, 107, 107, 0.2);
+      }
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .header-content {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .app-title {
+    font-size: 1.5em;
+  }
+
+  .navbar-toggler-custom {
+    display: block;
+  }
+
+  .nav-links-container {
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: flex-start; // Căn trái các mục trên mobile
+    margin-top: 15px;
+    padding-bottom: 10px;
+    border-top: 1px solid $border-color;
+
+    // Override Bootstrap display: none/flex
+    &.collapse:not(.show) {
+      display: none !important;
+    }
+
+    &.collapse.show {
+      display: flex !important;
+    }
+  }
+
+  .main-nav-wrapper {
+    width: 100%; // Chiếm toàn bộ chiều rộng
+    justify-content: flex-start; // Các mục menu chính sẽ căn trái trên mobile
+  }
+
+  .main-nav-left,
+  .user-auth-nav {
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+
+  .nav-item {
+    width: 100%;
+
+    .nav-link {
+      padding: 12px 20px;
+      border-bottom: 1px solid $border-color;
+
+      &:hover::after,
+      &.active::after {
+        width: 0;
+      }
+    }
+
+    &:last-child .nav-link {
+      border-bottom: none;
+    }
+  }
+
+  .user-auth-nav {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-content {
+    padding: 0 15px;
+  }
+
+  .app-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .app-title {
+    font-size: 1.4em;
+  }
+
+  .nav-item .nav-link {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  .user-profile-link,
+  .auth-link {
+    padding: 6px 10px;
+    font-size: 0.9em;
+  }
+}

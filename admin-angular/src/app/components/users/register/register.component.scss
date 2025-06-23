@@ -1,0 +1,480 @@
+/* register.component.scss */
+
+/* Color Palette - Sử dụng lại để đồng bộ */
+$primary-brand-color: #FF5722; // Cam chính
+$secondary-accent-color: #4CAF50; // Xanh lá phụ
+$text-dark-primary: #333333;
+$text-medium-secondary: #666666;
+$text-light-subtle: #999999;
+$background-page: #f0f2f5; // Nền trang nhẹ nhàng, cute
+$background-card: #ffffff;
+$border-light: #e0e0e0;
+$shadow-soft: rgba(0, 0, 0, 0.1);
+$input-border-focus: #a5d6a7; // Xanh lá nhạt cho focus
+$error-color: #e74c3c;
+$success-color: #2ecc71;
+
+// Page wrapper for background and centering
+.register-page-wrapper {
+  background-color: $background-page;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; // Căn giữa theo cả chiều dọc
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  color: $text-dark-primary;
+  padding: 40px 20px; // Đảm bảo padding trên mobile
+}
+
+// Container for the register card, adds a subtle perspective
+.register-card-container {
+  perspective: 1000px; // Cho phép hiệu ứng 3D nhẹ
+  width: 100%;
+  max-width: 500px; // Kích thước tối đa cho form đăng ký (hơi lớn hơn login vì nhiều trường hơn)
+}
+
+// Main register card styling
+.register-card {
+  background-color: $background-card;
+  border-radius: 20px; // Bo góc nhiều hơn, cute
+  box-shadow: 0 15px 40px $shadow-soft; // Bóng đổ mềm mại
+  overflow: hidden;
+  position: relative;
+  border: 1px solid lighten($border-light, 3%);
+  transform: rotateY(0deg); // Initial state for potential animation
+  transition: transform 0.5s ease-in-out; // Hiệu ứng chuyển động
+}
+
+// Header section inside the register card
+.register-header-section {
+  background: linear-gradient(135deg, lighten($secondary-accent-color, 15%), $secondary-accent-color); // Màu xanh lá cho register
+  padding: 40px 20px 30px;
+  color: white;
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-bottom: 30px; // Khoảng cách với form
+
+  .register-icon {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    animation: bounceIn 1s ease-out; // Hiệu ứng động khi tải trang
+
+    svg {
+      color: white;
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  .register-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .register-subtitle {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+// Form styling
+.register-form {
+  padding: 0 40px 40px; // Padding cho toàn bộ form
+}
+
+.form-field-group {
+  margin-bottom: 25px; // Khoảng cách giữa các nhóm input
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.95em;
+  color: $text-medium-secondary;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.input-with-icon {
+  position: relative;
+
+  .form-input {
+    width: 100%;
+    padding: 12px 15px 12px 45px; // Padding cho icon
+    border: 1px solid $border-light;
+    border-radius: 10px; // Bo góc input
+    font-size: 1.1em;
+    color: $text-dark-primary;
+    transition: all 0.3s ease;
+
+    // Special styling for date input
+    &[type="date"] {
+      height: 48px;
+      /* Consistent height with other inputs */
+      display: block;
+
+      /* Ensure full width */
+      // Dưới đây là các CSS để style placeholder cho date input trên các trình duyệt
+      &::-webkit-datetime-edit-text,
+      &::-webkit-datetime-edit-month-field,
+      &::-webkit-datetime-edit-day-field,
+      &::-webkit-datetime-edit-year-field {
+        color: $text-dark-primary; // Màu chữ khi chọn ngày
+      }
+
+      &::-webkit-datetime-edit-fields-wrapper {
+        background: transparent;
+      }
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-calendar-picker-indicator {
+        background: transparent;
+        color: transparent;
+        cursor: pointer;
+        // Hide default icon and use our own
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $secondary-accent-color; // Màu border focus cho register
+      box-shadow: 0 0 0 3px rgba($secondary-accent-color, 0.2); // Hiệu ứng focus dễ nhìn
+    }
+
+    &::placeholder {
+      color: $text-light-subtle;
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-light-subtle;
+    transition: color 0.3s ease;
+  }
+
+  .form-input:focus+.input-icon {
+    color: $secondary-accent-color; // Màu icon khi focus
+  }
+}
+
+.password-field {
+  .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    /* Adjust this top value to align correctly with input */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: $text-light-subtle;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+    z-index: 2;
+
+    /* Đảm bảo icon nằm trên input */
+    &:hover {
+      color: $text-dark-primary;
+    }
+  }
+
+  // Điều chỉnh top cho password-toggle để nó nằm đúng vị trí trong input-with-icon
+  .password-toggle {
+    top: calc(50% + 5px);
+    /* Khoảng cách từ trên cùng của input-with-icon */
+  }
+}
+
+// Validation messages
+.validation-message {
+  font-size: 0.9em;
+  margin-top: 5px;
+  margin-bottom: 0; // Remove default paragraph margin
+  text-align: left;
+
+  &.error-message {
+    color: $error-color;
+    font-weight: 500;
+  }
+}
+
+
+// Checkbox for terms
+.checkbox-custom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+
+  /* Add margin bottom to separate from button */
+  input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: $secondary-accent-color; // Màu cho checkbox
+    width: 18px;
+    height: 18px;
+  }
+
+  label {
+    font-size: 0.95em;
+    color: $text-medium-secondary;
+    cursor: pointer;
+
+    .terms-link {
+      color: $secondary-accent-color;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Buttons
+.form-actions {
+  margin-top: 30px; // Khoảng cách từ các trường form đến nút
+}
+
+.submit-button {
+  width: 100%;
+  padding: 15px 25px;
+  border-radius: 12px; // Bo góc nhiều hơn, cute
+  font-size: 1.2em;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-button {
+  background-color: $secondary-accent-color; // Màu xanh lá cho nút register
+  color: white;
+
+  &:hover {
+    background-color: darken($secondary-accent-color, 8%);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba($secondary-accent-color, 0.4);
+  }
+}
+
+// Login text and link
+.login-text {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 1em;
+  color: $text-medium-secondary;
+
+  span {
+    display: inline; // Đảm bảo span không phá vỡ dòng
+  }
+
+  .login-link {
+    color: $secondary-accent-color; // Màu xanh lá cho link đăng nhập
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments - Tương tự như Login nhưng điều chỉnh kích thước card */
+@media (max-width: 768px) {
+  .register-page-wrapper {
+    padding: 20px 10px;
+  }
+
+  .register-card-container {
+    max-width: 420px;
+  }
+
+  .register-card {
+    border-radius: 15px;
+  }
+
+  .register-header-section {
+    padding: 30px 15px 25px;
+    margin-bottom: 25px;
+
+    .register-icon {
+      width: 70px;
+      height: 70px;
+
+      svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .register-title {
+      font-size: 2em;
+    }
+
+    .register-subtitle {
+      font-size: 1em;
+    }
+  }
+
+  .register-form {
+    padding: 0 30px 30px;
+  }
+
+  .form-field-group {
+    margin-bottom: 20px;
+  }
+
+  .input-label {
+    font-size: 0.9em;
+  }
+
+  .input-with-icon .form-input {
+    padding: 10px 15px 10px 40px;
+    font-size: 1em;
+    border-radius: 8px;
+  }
+
+  .input-with-icon .input-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .password-field .password-toggle {
+    right: 12px;
+    font-size: 1em;
+    top: calc(50% + 5px);
+  }
+
+  .checkbox-custom label,
+  .terms-link {
+    font-size: 0.9em;
+  }
+
+  .submit-button {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 10px;
+  }
+
+  .login-text {
+    margin-top: 20px;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page-wrapper {
+    padding: 15px 10px;
+  }
+
+  .register-card-container {
+    max-width: 100%; // Fill width on very small screens
+  }
+
+  .register-card {
+    border-radius: 10px;
+  }
+
+  .register-header-section {
+    padding: 25px 10px 20px;
+    margin-bottom: 20px;
+
+    .register-icon {
+      width: 60px;
+      height: 60px;
+
+      svg {
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    .register-title {
+      font-size: 1.6em;
+    }
+
+    .register-subtitle {
+      font-size: 0.9em;
+    }
+  }
+
+  .register-form {
+    padding: 0 20px 20px;
+  }
+
+  .form-field-group {
+    margin-bottom: 15px;
+  }
+
+  .input-with-icon .form-input {
+    padding: 8px 12px 8px 35px;
+    font-size: 0.95em;
+    border-radius: 6px;
+  }
+
+  .input-with-icon .input-icon {
+    width: 16px;
+    height: 16px;
+    left: 10px;
+  }
+
+  .password-field .password-toggle {
+    right: 10px;
+  }
+
+  .checkbox-custom label,
+  .terms-link {
+    font-size: 0.85em;
+  }
+
+  .submit-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 8px;
+  }
+
+  .login-text {
+    margin-top: 15px;
+    font-size: 0.9em;
+  }
+}

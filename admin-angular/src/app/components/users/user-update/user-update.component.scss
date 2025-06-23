@@ -1,0 +1,225 @@
+/* Color Palette - Sử dụng lại từ các component khác để có sự đồng bộ */
+$primary-brand-color: #FF5722; // Cam chính
+$secondary-accent-color: #4CAF50; // Xanh lá phụ
+$text-dark-primary: #333333;
+$text-medium-secondary: #666666;
+$text-light-subtle: #999999;
+$background-page: #f0f2f5; // Nền trang nhẹ nhàng
+$background-card: #ffffff;
+$border-light: #e0e0e0;
+$shadow-soft: rgba(0, 0, 0, 0.08);
+$error-color: #e74c3c;
+$success-color: #2ecc71;
+$info-color: #3498db;
+
+.update-form-wrapper {
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  color: $text-dark-primary;
+  background-color: $background-page; // Match parent background for consistency
+}
+
+.update-form-card {
+  background-color: $background-card;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px $shadow-soft;
+  width: 100%;
+  max-width: 550px; // Slightly smaller than user-detail card
+  overflow: hidden;
+  padding: 30px 40px;
+  border: 1px solid $border-light;
+
+  .form-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: $primary-brand-color;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .form-subtitle {
+    font-size: 1em;
+    color: $text-medium-secondary;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 0.95em;
+      color: $text-medium-secondary;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="password"] {
+      padding: 12px 15px;
+      border: 1px solid $border-light;
+      border-radius: 8px;
+      font-size: 1em;
+      color: $text-dark-primary;
+      background-color: $background-card;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-brand-color;
+        box-shadow: 0 0 0 3px rgba($primary-brand-color, 0.2);
+      }
+    }
+  }
+
+  .form-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+
+// Re-using message box styles
+.message-box {
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.95em;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 15px; // Add some top margin
+
+  .message-text {
+    margin: 0;
+  }
+}
+
+.error-box {
+  background-color: lighten($error-color, 45%);
+  color: $error-color;
+  border: 1px solid darken($error-color, 10%);
+}
+
+.success-box {
+  background-color: lighten($success-color, 45%);
+  color: $success-color;
+  border: 1px solid darken($success-color, 10%);
+}
+
+// Re-using button styles
+.action-button {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.05em;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.primary-button {
+  background-color: $primary-brand-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($primary-brand-color, 8%);
+    box-shadow: 0 4px 15px rgba($primary-brand-color, 0.4);
+  }
+}
+
+.secondary-button {
+  background-color: $border-light;
+  color: $text-dark-primary;
+  border: 1px solid darken($border-light, 10%);
+
+  &:hover {
+    background-color: darken($border-light, 5%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .update-form-card {
+    padding: 25px 30px;
+    border-radius: 10px;
+
+    .form-title {
+      font-size: 1.8em;
+    }
+
+    .form-subtitle {
+      font-size: 0.9em;
+    }
+
+    .form-group {
+      label {
+        font-size: 0.9em;
+      }
+
+      input {
+        padding: 10px 12px;
+        font-size: 0.9em;
+      }
+    }
+
+    .action-button {
+      padding: 10px 20px;
+      font-size: 0.95em;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .update-form-wrapper {
+    padding: 20px 10px;
+  }
+  .update-form-card {
+    padding: 20px 20px;
+    border-radius: 8px;
+
+    .form-title {
+      font-size: 1.5em;
+    }
+
+    .form-group {
+      label {
+        font-size: 0.85em;
+      }
+
+      input {
+        padding: 8px 10px;
+        font-size: 0.85em;
+      }
+    }
+
+    .action-button {
+      padding: 8px 15px;
+      font-size: 0.9em;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}

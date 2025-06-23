@@ -1,0 +1,56 @@
+<div style="display: flex;">
+    <app-header></app-header>
+    <div class="app-detail-page-wrapper">
+        <div class="recipe-detail-container">
+            <div class="detail-intro-section">
+                <h1 class="detail-title">Khám phá món {{ recipe?.name }}</h1>
+                <p class="detail-description">Chi tiết về cách chế biến món ăn hấp dẫn này.</p>
+            </div>
+
+            <div class="detail-content-layout">
+                <div class="detail-media-column">
+                    <div id="carouselExample" class="recipe-carousel carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div *ngFor="let image of recipe?.recipeImageOutputs; let i = index" class="carousel-item"
+                                [ngClass]="{'active': i === currentImageIndex}">
+                                <div class="carousel-image-wrapper">
+                                    <img [src]="image.imageUrl" class="recipe-main-image" alt="Recipe Image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" (click)="showImage(currentImageIndex - 1)">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+
+                        <button class="carousel-control-next" type="button" (click)="showImage(currentImageIndex + 1)">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="thumbnail-gallery-wrapper">
+                        <div class="thumbnail-row-layout">
+                            <div class="thumbnail-container">
+                                <div *ngFor="let image of recipe?.recipeImageOutputs; let i = index"
+                                    class="thumbnail-item" [ngClass]="{'active': i === currentImageIndex}"
+                                    (click)="thumbnailClick(i)">
+                                    <img [src]="image.imageUrl" class="thumbnail-image" alt="Thumbnail Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-info-column">
+                    <div class="info-section recipe-summary-section">
+                        <h2 class="summary-heading">{{ recipe?.name }}</h2>
+                        <div class="summary-description" [innerHTML]="recipe?.description"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

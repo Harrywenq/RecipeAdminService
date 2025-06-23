@@ -1,0 +1,400 @@
+/* Color Palette */
+$primary-brand-color: #FF5722; // Cam chính
+$secondary-accent-color: #4CAF50; // Xanh lá phụ
+$text-dark-primary: #333333;
+$text-medium-secondary: #666666;
+$text-light-subtle: #999999;
+$background-page: #f9f9f9;
+$background-card: #ffffff;
+$border-light: #e0e0e0;
+$shadow-subtle: rgba(0, 0, 0, 0.08);
+$highlight-section-bg: #fffaf0; // Nền nhẹ cho các section
+
+// Outer container for the whole page
+.app-detail-page-wrapper {
+  width: 100vw;
+  background-color: $background-page;
+  padding: 40px 0;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  color: $text-dark-primary;
+  min-height: calc(100vh - 120px); // Đảm bảo footer không bị chồng lên
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Căn trên cùng
+}
+
+.recipe-detail-container {
+  max-width: 1300px; // Increased max-width for a more spacious feel
+  margin: 0 auto;
+  background-color: $background-card;
+  border-radius: 12px; // More rounded corners
+  box-shadow: 0 8px 30px $shadow-subtle; // Deeper shadow
+  overflow: hidden;
+  display: flex; // Use flexbox for top-level layout control within container
+  flex-direction: column;
+  padding-bottom: 30px; // Padding at the bottom of the container
+}
+
+// Intro section for recipe title and description
+.detail-intro-section {
+  text-align: center;
+  padding: 50px 30px 40px;
+  background: linear-gradient(to right, lighten($primary-brand-color, 45%), lighten($primary-brand-color, 50%)); // Gradient
+  color: $text-dark-primary;
+  border-bottom: 1px solid $border-light;
+  margin-bottom: 30px;
+
+  .detail-title {
+    font-size: 3.2em;
+    font-weight: 800; // Extra bold
+    color: $primary-brand-color;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .detail-description {
+    font-size: 1.3em;
+    color: $text-medium-secondary;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+}
+
+// Main content layout (image column)
+.detail-content-layout {
+  display: flex;
+  flex-wrap: wrap; // Keep wrap for responsiveness if needed, but not for side-by-side
+  gap: 40px; // Increased gap between columns
+  padding: 0 30px; // Horizontal padding for content
+  justify-content: center; // Center the image column
+}
+
+// Left column for media (carousel and thumbnails)
+.detail-media-column {
+  flex: none; // Remove flex grow/shrink properties
+  width: 100%; // Make it take full width
+  max-width: 800px; // Optional: set a max-width for the image column
+  display: flex;
+  flex-direction: column;
+  gap: 25px; // Gap between carousel and thumbnails
+}
+
+.recipe-carousel {
+  position: relative;
+  background-color: #000;
+  border-radius: 10px; // More rounded corners
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15); // Deeper shadow
+}
+
+.carousel-image-wrapper {
+  width: 100%;
+  padding-bottom: 60%; // 4:3 aspect ratio (can change to 56.25% for 16:9)
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-main-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03); // Slight zoom on hover
+  }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 55px; // Larger controls
+  height: 55px;
+  background-color: rgba(0, 0, 0, 0.6); // Darker background
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.85;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 10; // Ensure controls are above images
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 25px; // Larger icons
+    height: 25px;
+    background-size: 100%;
+    color: white; // Ensure icons are visible
+  }
+}
+
+.carousel-control-prev {
+  left: 15px;
+}
+
+.carousel-control-next {
+  right: 15px;
+}
+
+// Thumbnail gallery wrapper
+.thumbnail-gallery-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  // Margin top to separate from carousel, if not already handled by gap in parent
+}
+
+.thumbnail-row-layout {
+  // Styles for your original .row that wraps .thumbnail-container
+  display: flex;
+  flex-wrap: wrap; // Allows thumbnails to wrap
+  justify-content: center; // Center thumbnails if they don't fill the row
+  width: 100%; // Take full width of its parent
+  gap: 12px; // This gap applies between thumbnail items if they were direct children.
+  // But since they are inside .thumbnail-container, the gap on .thumbnail-container will apply.
+}
+
+.thumbnail-container {
+  // Your original .thumbnail-container, now a flex container for items
+  display: flex;
+  gap: 12px; // Slightly larger gap between thumbnails
+  flex-wrap: wrap; // Allows thumbnails to wrap to the next line
+  justify-content: center; // Center items within the container
+}
+
+.thumbnail-item {
+  width: 80px; // Larger thumbnails
+  height: 80px;
+  border-radius: 6px; // More rounded
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent; // Thicker border
+  transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0; // Prevent shrinking in flex container
+
+  &:hover {
+    border-color: lighten($primary-brand-color, 15%);
+    transform: scale(1.08); // More pronounced scale
+    box-shadow: 0 0 10px rgba($primary-brand-color, 0.3);
+  }
+
+  &.active {
+    border-color: $primary-brand-color;
+    box-shadow: 0 0 0 3px rgba($primary-brand-color, 0.4); // Outer glow
+  }
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// New section for recipe info, placed below image
+.detail-info-column-below-image {
+  width: 100%; // Take full width
+  padding: 30px 30px 0; // Adjust padding as needed
+  margin-top: 30px; // Add space above this section
+  display: flex;
+  justify-content: center; // Center the content within
+}
+
+.info-section {
+  background-color: $background-card;
+  padding: 25px;
+  border-radius: 10px; // Rounded corners for sections
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05); // Lighter shadow for sections
+  border: 1px solid $border-light;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; // Ensure it takes full width of its parent
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.recipe-summary-section {
+  text-align: center;
+  padding: 20px;
+
+  .summary-heading {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: $primary-brand-color;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .summary-description {
+    font-size: 1.1em;
+    color: $text-medium-secondary;
+    line-height: 1.6;
+    max-width: 800px; // Max-width for readability
+    margin: 0 auto;
+    text-align: left; // Align text left within the description
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .detail-content-layout {
+    flex-direction: column; // Stack columns on smaller screens
+    padding: 0 20px;
+    gap: 30px;
+  }
+
+  .detail-media-column {
+    min-width: 100%; // Take full width
+  }
+
+  .detail-info-column-below-image {
+    padding: 20px 20px 0;
+    margin-top: 25px;
+  }
+
+  .detail-intro-section {
+    padding: 40px 20px 30px;
+    margin-bottom: 25px;
+  }
+
+  .detail-title {
+    font-size: 2.8em;
+  }
+
+  .detail-description {
+    font-size: 1.2em;
+  }
+
+  .recipe-summary-section {
+    .summary-heading {
+      font-size: 2em;
+    }
+
+    .summary-description {
+      font-size: 1em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .recipe-detail-container {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding-bottom: 20px;
+  }
+
+  .app-detail-page-wrapper {
+    padding: 20px 0;
+  }
+
+  .detail-content-layout {
+    padding: 0 15px;
+    gap: 25px;
+  }
+
+  .detail-info-column-below-image {
+    padding: 15px 15px 0;
+    margin-top: 20px;
+  }
+
+  .detail-intro-section {
+    padding: 30px 15px 25px;
+    margin-bottom: 20px;
+  }
+
+  .detail-title {
+    font-size: 2.4em;
+  }
+
+  .detail-description {
+    font-size: 1.1em;
+  }
+
+  .recipe-summary-section {
+    padding: 15px;
+
+    .summary-heading {
+      font-size: 1.8em;
+    }
+  }
+
+  .info-section {
+    padding: 20px;
+  }
+
+  .thumbnail-item {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-detail-page-wrapper {
+    padding: 10px 0;
+  }
+
+  .detail-intro-section {
+    padding: 20px 10px 15px;
+    margin-bottom: 15px;
+  }
+
+  .detail-title {
+    font-size: 2em;
+  }
+
+  .detail-description {
+    font-size: 1em;
+  }
+
+  .detail-content-layout {
+    padding: 0 10px;
+    gap: 20px;
+  }
+
+  .detail-info-column-below-image {
+    padding: 10px 10px 0;
+    margin-top: 15px;
+  }
+
+  .recipe-summary-section {
+    .summary-heading {
+      font-size: 1.6em;
+    }
+
+    .summary-description {
+      font-size: 0.95em;
+    }
+  }
+
+  .info-section {
+    padding: 15px;
+  }
+
+  .thumbnail-item {
+    width: 55px;
+    height: 55px;
+    border-width: 2px;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+    height: 40px;
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

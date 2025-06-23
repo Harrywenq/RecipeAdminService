@@ -1,0 +1,37 @@
+<div class="update-form-wrapper">
+  <div class="update-form-card">
+    <h2 class="form-title">Cập nhật thông tin tài khoản</h2>
+    <p class="form-subtitle">Điền thông tin bạn muốn thay đổi.</p>
+
+    <form (ngSubmit)="updateUserProfile()">
+      <div class="form-group">
+        <label for="displayName">Tên hiển thị:</label>
+        <input type="text" id="displayName" [(ngModel)]="updateForm.displayName" name="displayName" required>
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Ngày sinh:</label>
+        <input type="date" id="dateOfBirth" [(ngModel)]="updateForm.dateOfBirth" name="dateOfBirth">
+      </div>
+      <div class="form-group">
+        <label for="password">Mật khẩu mới (để trống nếu không đổi):</label>
+        <input type="password" id="password" [(ngModel)]="updateForm.password" name="password">
+      </div>
+      <div class="form-group">
+        <label for="retypePassword">Nhập lại mật khẩu mới:</label>
+        <input type="password" id="retypePassword" [(ngModel)]="updateForm.retypePassword" name="retypePassword">
+      </div>
+
+      <div class="message-box error-box" *ngIf="updateErrorMessage">
+        <p class="message-text">{{ updateErrorMessage }}</p>
+      </div>
+      <div class="message-box success-box" *ngIf="updateSuccessMessage">
+        <p class="message-text">{{ updateSuccessMessage }}</p>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="action-button primary-button">Lưu thay đổi</button>
+        <button type="button" class="action-button secondary-button" (click)="cancelUpdate()">Hủy bỏ</button>
+      </div>
+    </form>
+  </div>
+</div>

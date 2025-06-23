@@ -1,0 +1,363 @@
+/* Colorful YouTube-like Theme */
+$youtube-red: #ff0000;
+$youtube-dark: #1c1c1c;
+$youtube-light-gray: #f4f4f4;
+$youtube-medium-gray: #999999;
+$youtube-border-gray: #dcdcdc;
+$text-primary: #1e1e1e;
+$text-secondary: #555;
+
+$primary-brand-color: #ff5722; // Vivid orange
+$secondary-accent-color: #4CAF50; // Green accent
+$highlight-yellow: #ffc107;
+$cool-blue: #00bcd4;
+
+.page-title {
+    text-align: center;
+    margin: 30px auto 40px;
+    color: $text-primary;
+
+    h1 {
+        font-size: 2.7em;
+        font-weight: 800;
+        color: $primary-brand-color;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+    }
+}
+
+template {
+    background-color: $youtube-light-gray;
+}
+
+.youtube-container {
+    width: 100vw;
+    padding: 0 25px;
+    background-color: #fff8f6;
+    font-family: 'Roboto', sans-serif;
+    color: $text-primary;
+    flex-grow: 1;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px; // Tăng chiều cao để tạo sự ấn tượng
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f0f0f0; // Fallback background
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.65); // Làm tối ảnh hơn một chút để văn bản nổi bật
+}
+
+.youtube-top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 2px dashed $youtube-border-gray;
+    background-color: #fff3e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-categories {
+    .youtube-category-select {
+        padding: 14px 28px;
+        font-size: 1.1em;
+        border: 2px solid $cool-blue;
+        border-radius: 10px;
+        background-color: #e0f7fa;
+        font-weight: 500;
+        min-width: 200px;
+        color: $text-primary;
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+            background-color: #b2ebf2;
+            border-color: darken($cool-blue, 10%);
+        }
+    }
+}
+
+.Youtube-area {
+    flex-grow: 1;
+    display: flex;
+    border: 2px solid $highlight-yellow;
+    border-radius: 8px;
+    max-width: 600px;
+    background-color: #fffde7;
+    margin: 0 auto;
+
+    &:focus-within {
+        border-color: darken($highlight-yellow, 10%);
+        box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.4);
+    }
+}
+
+.Youtube-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    font-size: 1.1em;
+    outline: none;
+    background: transparent;
+    color: $text-primary;
+}
+
+.Youtube-button {
+    background-color: #fff3e0;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-secondary;
+
+    &:hover {
+        background-color: $highlight-yellow;
+        color: #000;
+    }
+}
+
+.create-recipe-button {
+    background-color: $primary-brand-color;
+    color: white;
+    padding: 16px 40px; // tăng chiều ngang
+    font-size: 1.1em;
+    min-width: 240px; // đảm bảo nút không quá ngắn
+    border-radius: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba($primary-brand-color, 0.4);
+    border: 2px solid darken($primary-brand-color, 5%);
+    flex: 0 0 auto;
+
+    &:hover {
+        background-color: darken($primary-brand-color, 10%);
+        transform: scale(1.07);
+    }
+}
+
+
+.app-message {
+    padding: 14px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1em;
+
+    &.success-message {
+        background-color: #e0f2f1;
+        color: #00796b;
+        border: 1px solid #80cbc4;
+    }
+
+    &.error-message {
+        background-color: #ffebee;
+        color: #c62828;
+        border: 1px solid #ef9a9a;
+    }
+}
+
+.youtube-recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.youtube-recipe-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.youtube-thumbnail-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background-color: #eceff1;
+}
+
+.youtube-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.youtube-card-details {
+    padding: 15px 20px;
+}
+
+.youtube-recipe-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $text-primary;
+    margin: 0 0 10px 0;
+}
+
+.youtube-recipe-meta {
+    font-size: 0.9em;
+    color: $text-secondary;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.youtube-card-actions {
+    border-top: 1px dashed $youtube-border-gray;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.youtube-action-button {
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9em;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.youtube-view-button {
+    background-color: #ffe0b2;
+    color: #e65100;
+
+    &:hover {
+        background-color: #ffcc80;
+    }
+}
+
+.youtube-update-button {
+    background-color: #64b5f6;
+    color: white;
+
+    &:hover {
+        background-color: darken(#64b5f6, 10%);
+    }
+}
+
+.youtube-delete-button {
+    background-color: #ef5350;
+    color: white;
+
+    &:hover {
+        background-color: darken(#ef5350, 10%);
+    }
+}
+
+.no-recipes-message {
+    text-align: center;
+    padding: 60px 30px;
+    background-color: #fff3e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    color: $text-secondary;
+    font-size: 1.2em;
+}
+
+.youtube-pagination-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.youtube-pagination-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    background-color: white;
+    border: 1px solid $youtube-border-gray;
+    border-radius: 6px;
+    overflow: hidden;
+
+    .page-item {
+        .page-link {
+            display: block;
+            padding: 12px 18px;
+            color: $text-primary;
+            text-decoration: none;
+            border-right: 1px solid $youtube-border-gray;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $highlight-yellow;
+            }
+        }
+
+        &.active .page-link {
+            background-color: $youtube-red;
+            color: white;
+            font-weight: bold;
+        }
+
+        &.disabled .page-link {
+            color: $youtube-medium-gray;
+            background-color: $youtube-light-gray;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .youtube-recipes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .create-recipe-button {
+        padding: 14px 28px;
+        font-size: 1em;
+    }
+
+    .youtube-categories .youtube-category-select {
+        padding: 12px 24px;
+        font-size: 1em;
+        width: 100%;
+        text-align: center;
+    }
+
+    .page-title h1 {
+        font-size: 2em;
+    }
+}

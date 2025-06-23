@@ -1,0 +1,136 @@
+<div style="display: flex;">
+
+    <app-header></app-header>
+
+    <div class="youtube-container">
+        <div *ngIf="errorMessage" class="app-message error-message">
+            <p>{{ errorMessage }}</p>
+        </div>
+        <div class="hero-image-container">
+            <img src="https://leapmax.ai/wp-content/uploads/2024/10/time-management-tools.webp"
+                alt="Tiêu đề món ăn ngon" class="hero-image">
+        </div>
+        <div class="youtube-top-bar">
+            <div class="youtube-categories">
+                <select class="youtube-category-select" [(ngModel)]="selectedCategoryId" (change)="(e) => searchRecipes(e)">
+                    <option [value]="0">Tất cả danh mục</option>
+                    <option *ngFor="let category of categories" [value]="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="Youtube-area">
+                <input type="text" class="Youtube-input" placeholder="Tìm kiếm món ăn..." [(ngModel)]="name"
+                    (keyup.enter)="searchRecipes()">
+                <button class="Youtube-button" (click)="searchRecipes()" title="Tìm kiếm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            <button class="youtube-action-button create-recipe-button" (click)="onCreateNewRecipe()"
+                title="Tạo mới công thức">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-plus-circle">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                Tạo mới công thức
+            </button>
+        </div>
+
+        <div class="youtube-recipes-grid">
+            <div class="youtube-recipe-card" *ngFor="let recipe of recipes">
+                <div class="youtube-thumbnail-container" (click)="onRecipeClick(recipe.id)">
+                    <img [src]="recipe.url" alt="{{ recipe.name }}" class="youtube-thumbnail">
+                </div>
+                <div class="youtube-card-details">
+                    <h3 class="youtube-recipe-title" (click)="onRecipeClick(recipe.id)">{{ recipe.name }}</h3>
+                    <div class="youtube-recipe-meta">
+                        <span class="youtube-channel-name">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="currentColor" stroke="none">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-4H7V7h4v6h2V7h2v6h-2v4z" />
+                            </svg>
+                            Food Recipes
+                        </span>
+                    </div>
+                    <div class="youtube-card-actions">
+                        <button class="youtube-action-button youtube-view-button" (click)="onRecipeClick(recipe.id)"
+                            title="Xem chi tiết">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-play-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                            </svg>
+                            Xem chi tiết
+                        </button>
+                        <button class="youtube-action-button youtube-update-button" title="Cập nhật"
+                            (click)="onUpdate(recipe.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-edit">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path>
+                            </svg>
+                            <a class="nav-link" routerLink="/recipe-update">Cập nhật</a>
+                        </button>
+                        <button class="youtube-action-button youtube-delete-button" title="Xóa"
+                            (click)="deleteRecipe(recipe.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-trash-2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                </path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="recipes.length === 0 && !errorMessage" class="no-recipes-message">
+                <p>Không có món ăn nào được tìm thấy. Hãy thử tìm kiếm với các từ khóa khác hoặc xem tất cả danh mục!
+                </p>
+            </div>
+        </div>
+
+        <div class="youtube-pagination-section">
+            <nav aria-label="Page navigation">
+                <ul class="youtube-pagination-list">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <a class="page-link" (click)="onPageChange(1)">Đầu</a>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <a class="page-link" (click)="onPageChange(currentPage - 1)">Trước</a>
+                    </li>
+
+                    <ng-container *ngFor="let page of visiblePages">
+                        <li class="page-item" [class.active]="page === currentPage">
+                            <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                        </li>
+                    </ng-container>
+
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <a class="page-link" (click)="onPageChange(currentPage + 1)">Sau</a>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <a class="page-link" (click)="onPageChange(totalPages)">Cuối</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,80 @@
+<div class="recipe-form">
+    <h2 class="form-title">🧑‍🍳 Chỉnh sửa công thức món ăn</h2>
+    <form [formGroup]="recipeForm" (ngSubmit)="submitRecipe()" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="name">Tên món ăn</label>
+            <input id="name" class="form-control" formControlName="name" placeholder="VD: Cà ri gà" />
+            <div *ngIf="recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched" class="error">
+                {{ recipeForm.get('name')?.hasError('required') ? 'Vui lòng nhập tên món ăn!' : 'Tên món ăn phải có ít
+                nhất 3 ký tự!' }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Mô tả</label>
+            <textarea id="description" class="form-control" formControlName="description" rows="4"
+                placeholder="Mô tả ngắn gọn về món ăn..."></textarea>
+            <div *ngIf="recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched" class="error">
+                {{ recipeForm.get('description')?.hasError('required') ? 'Vui lòng nhập mô tả!' : 'Mô tả phải có ít nhất
+                10 ký tự!' }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Danh mục</label>
+            <select id="category" class="form-control" formControlName="categoryId">
+                <option value="" disabled>-- Chọn danh mục --</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                    {{ category.name }}
+                </option>
+            </select>
+            <div *ngIf="recipeForm.get('categoryId')?.invalid && recipeForm.get('categoryId')?.touched" class="error">
+                Vui lòng chọn danh mục!
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="tag">Thẻ</label>
+            <select id="tag" class="form-control" formControlName="tagId">
+                <option value="" disabled>-- Chọn thẻ --</option>
+                <option *ngFor="let tag of tags" [value]="tag.id">
+                    {{ tag.name }}
+                </option>
+            </select>
+            <div *ngIf="recipeForm.get('tagId')?.invalid && recipeForm.get('tagId')?.touched" class="error">
+                Vui lòng chọn thẻ!
+            </div>
+        </div>
+
+        <div class="form-group file-upload">
+            <label for="thumbnail">Ảnh đại diện</label>
+            <input id="thumbnail" type="file" accept="image/*" (change)="onThumbnailChange($event)" />
+
+            <!-- Hiển thị ảnh thumbnail preview -->
+            <div *ngIf="thumbnailPreview" class="image-preview">
+                <img [src]="thumbnailPreview" alt="Ảnh đại diện" class="preview-image" />
+            </div>
+        </div>
+
+        <div class="form-group file-upload">
+            <label for="files">Ảnh chi tiết (tối đa {{ MAX_IMAGES }})</label>
+            <input id="files" type="file" accept="image/*" multiple (change)="onFilesChange($event)" />
+
+            <!-- Hiển thị preview danh sách ảnh chi tiết -->
+            <div *ngIf="detailPreviews.length" class="image-preview multiple">
+                <img *ngFor="let src of detailPreviews" [src]="src" alt="Ảnh chi tiết" class="preview-image" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-submit" [disabled]="recipeForm.invalid || isSubmitting">
+            {{ isSubmitting ? 'Đang tạo...' : 'Cập nhật công thức' }}
+        </button>
+
+        <p *ngIf="message" class="message" [class.error]="message.includes('lỗi') || message.includes('không')">
+            {{ message }}
+        </p>
+        <button type="button" class="btn btn-back" (click)="goBack()">Quay lại</button>
+    </form>
+</div>

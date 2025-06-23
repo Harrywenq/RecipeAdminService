@@ -1,0 +1,78 @@
+
+<header class="app-header">
+    <div class="header-content">
+        <a class="logo-link" routerLink="/">
+            <svg class="app-logo" width="48" height="48" viewBox="0 0 100 100">
+                <polygon points="50,5 93,27 93,73 50,95 7,73 7,27" fill="#FF5722" /> <text x="20" y="65" font-size="40"
+                    font-family="Segoe UI, sans-serif" fill="white" font-weight="600">
+                    H
+                </text>
+                <text x="52" y="65" font-size="40" font-family="Segoe UI, sans-serif" fill="white" font-weight="600">
+                    Q
+                </text>
+            </svg>
+            <span class="app-title">Food Recipes</span> </a>
+
+        <button class="navbar-toggler-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="toggler-icon-line"></span>
+            <span class="toggler-icon-line"></span>
+            <span class="toggler-icon-line"></span>
+        </button>
+
+        <div class="nav-links-container collapse navbar-collapse" id="navbarNav">
+            <div class="main-nav-wrapper">
+                <ul class="main-nav-left">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/home" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: true}">Trang
+                            chủ</a>
+                    </li>
+                    <li class="nav-item" *ngIf="userResponse">
+                        <a class="nav-link" routerLink="/chatbot" routerLinkActive="active">AI Tư Vấn</a>
+                    </li>
+                    <li class="nav-item" *ngIf="userResponse">
+                        <a class="nav-link" routerLink="/posts" routerLinkActive="active">Bài viết</a>
+                    </li>
+                    <li class="nav-item" *ngIf="userResponse">
+                        <a class="nav-link" routerLink="/favorite-recipes" routerLinkActive="active">Công thức yêu
+                            thích</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="user-auth-nav">
+                <li class="nav-item">
+                    <ng-container *ngIf="userResponse">
+                        <a class="nav-link user-profile-link" routerLink="/profile" [ngbPopover]="popoverContent"
+                            popoverTitle="Tài khoản" triggers="click" [placement]="'bottom'"
+                            (click)="togglePopover($event)">
+                            <span class="user-avatar-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M5.52 19c.78-2.3 2.9-4 5.48-4s4.7.7 5.48 4M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
+                                </svg>
+                            </span>
+                            {{ userResponse.displayName }}
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ng-template #popoverContent>
+                            <div class="popover-list-custom">
+                                <a class="popover-item" routerLink="/user-details">Thông tin tài khoản</a>
+                                <a href="#" class="popover-item logout-link" (click)="handleItemClick(1)">Đăng xuất</a>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="!userResponse">
+                        <a class="nav-link auth-link" routerLink="/login">Đăng nhập</a>
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

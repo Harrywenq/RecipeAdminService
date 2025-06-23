@@ -1,0 +1,48 @@
+<div class="tag-create-wrapper">
+  <div class="header-section">
+    <h1><i class="fas fa-plus-circle"></i> Thêm Tag mới</h1>
+  </div>
+
+  <div *ngIf="loading" class="info-card loading-card">
+    <i class="fas fa-spinner fa-spin"></i> Đang tạo tag mới...
+  </div>
+
+  <div *ngIf="errorMessage" class="info-card error-card">
+    <i class="fas fa-triangle-exclamation"></i> {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="info-card success-card">
+    <i class="fas fa-circle-check"></i> {{ successMessage }}
+  </div>
+
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit(tagForm)" #tagForm="ngForm">
+      <div class="form-group">
+        <label for="name">Tên Tag <span class="required">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="newTag.name"
+          required
+          #name="ngModel"
+          class="form-input"
+          [ngClass]="{'is-invalid': name.invalid && (name.dirty || name.touched)}"
+          placeholder="Ví dụ: Ăn kiêng, Món nhanh, Bữa sáng..."
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation-error">
+          <div *ngIf="name.errors?.['required']">Tên tag không được để trống.</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-button" [disabled]="loading || tagForm.invalid">
+          <i class="fas fa-plus"></i> Tạo Tag
+        </button>
+        <button type="button" class="cancel-button" (click)="goBackToList()">
+          <i class="fas fa-xmark-circle"></i> Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

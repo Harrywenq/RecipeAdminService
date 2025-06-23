@@ -1,0 +1,42 @@
+<div class="tag-update-container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Cập nhật Tag</h2>
+            <p class="card-subtitle">Chỉnh sửa thông tin tag của bạn.</p>
+        </div>
+        <div class="card-body">
+            <div *ngIf="loading" class="alert alert-info">Đang tải thông tin tag...</div>
+            <div *ngIf="!loading && !tagId" class="alert alert-warning">Không tìm thấy ID tag để cập nhật. Vui lòng quay
+                lại danh sách tag.</div>
+
+            <form (ngSubmit)="onUpdate()" #tagForm="ngForm" *ngIf="!loading && tagId">
+                <div class="form-group">
+                    <label>ID Tag:</label>
+                    <p class="form-control-static">{{ tagId }}</p>
+                </div>
+                <div class="form-group">
+                    <label for="tagName">Tên Tag mới:</label>
+                    <input type="text" id="tagName" name="tagName" [(ngModel)]="tagName" required class="form-control"
+                        placeholder="Nhập tên tag mới" />
+                    <div *ngIf="tagForm.controls['tagName']?.invalid && tagForm.controls['tagName']?.touched"
+                        class="text-danger">
+                        Tên Tag không được để trống.
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="!tagForm.valid">
+                        <i class="fas fa-edit"></i> Cập nhật
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="goBack()">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </button>
+                </div>
+            </form>
+
+            <div *ngIf="message" class="alert mt-3"
+                [ngClass]="{'alert-success': isSuccess, 'alert-danger': !isSuccess}">
+                {{ message }}
+            </div>
+        </div>
+    </div>
+</div>

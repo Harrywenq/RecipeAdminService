@@ -1,0 +1,69 @@
+<div style="display: flex;">
+    <app-header></app-header>
+    <div class="post-management-container">
+        <div class="top-bar">
+            <h2>Quản lý bài viết</h2>
+            <div class="controls-group">
+                <div class="search-box">
+                    <input type="text" [(ngModel)]="searchTitle" placeholder="Tìm bài viết theo tiêu đề..."
+                        (keyup.enter)="searchPosts()">
+                    <button class="search-button" (click)="searchPosts()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-search">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <div class="posts-feed">
+            <div class="post-card" *ngFor="let post of posts">
+                <div class="post-header">
+                    <div class="user-info">
+                        <span class="user-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor" stroke="none" class="feather feather-user">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <span class="username">{{ post.userName }}</span>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-button delete-button" *ngIf="currentUser" (click)="deletePost(post.id)"
+                            title="Xóa bài viết">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-trash-2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                </path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3 class="post-title">{{ post.title }}</h3>
+                    <p class="post-text">{{ post.content }}</p>
+                </div>
+                <div class="post-footer">
+                    <span class="post-id">ID: {{ post.id }}</span>
+                </div>
+            </div>
+
+            <div *ngIf="posts.length === 0 && !errorMessage" class="no-posts-message">
+                <p>Không có bài viết nào được tìm thấy.</p>
+            </div>
+        </div>
+    </div>
+</div>

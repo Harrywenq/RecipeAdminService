@@ -1,0 +1,129 @@
+<app-header></app-header>
+<div class="post-page-container">
+    <div class="create-post-card">
+        <div class="create-post-header">
+            <div class="user-avatar-small">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+                    stroke="none" class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <input type="text" placeholder="Bạn đang nghĩ gì, {{ currentUserDisplayName }}?"
+                (click)="openCreatePostDialog()" readonly>
+            <button class="create-button" (click)="openCreatePostDialog()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="search-filter-bar">
+        <input type="text" [(ngModel)]="searchKeyword" placeholder="Tìm kiếm bài viết..." (keyup.enter)="searchPosts()">
+        <button class="search-button" (click)="searchPosts()">Tìm kiếm</button>
+    </div>
+
+    <div class="posts-feed">
+        <div *ngIf="posts.length === 0 && !isLoading && !errorMessage" class="empty-state">
+            <p>Chưa có bài viết nào. Hãy là người đầu tiên chia sẻ!</p>
+            <button class="cute-button" (click)="openCreatePostDialog()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Tạo bài viết mới
+            </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+            <p>{{ errorMessage }}</p>
+            <button class="cute-button" (click)="loadPosts()">Thử lại</button>
+        </div>
+
+        <div *ngIf="isLoading" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Đang tải bài viết...</p>
+        </div>
+
+        <div class="post-card" *ngFor="let post of posts">
+            <div class="post-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor" stroke="none" class="feather feather-user">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="post-meta">
+                        <span class="username">{{ post.userName }}</span>
+                        <span class="post-date">{{ post.createdAt ? (post.createdAt | date:'HH:mm dd/MM/yyyy') : 'Thời
+                            gian không xác định' }}</span>
+                    </div>
+                </div>
+                <div class="post-actions" *ngIf="post.isEditable || post.isDeletable">
+                    <button class="action-button edit-button" *ngIf="post.isEditable" (click)="openEditPostDialog(post)"
+                        title="Sửa bài viết">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-edit">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path>
+                        </svg>
+                    </button>
+                    <button class="action-button delete-button" *ngIf="post.isDeletable"
+                        (click)="confirmDeletePost(post.id)" title="Xóa bài viết">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-trash-2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                            </path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="post-content">
+                <h3 class="post-title">{{ post.title }}</h3>
+                <p class="post-text">{{ post.content }}</p>
+            </div>
+            <div class="post-footer">
+            </div>
+        </div>
+    </div>
+
+    <ng-template #postDialog let-modal>
+        <div class="modal-header-cute">
+            <h4 class="modal-title">{{ isEditMode ? 'Sửa bài viết' : 'Tạo bài viết mới' }}</h4>
+            <button type="button" class="close-button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body-cute">
+            <form (ngSubmit)="savePost()">
+                <div class="form-group">
+                    <label for="postTitle">Tiêu đề:</label>
+                    <input type="text" id="postTitle" [(ngModel)]="currentPost.title" name="postTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">Nội dung:</label>
+                    <textarea id="postContent" [(ngModel)]="currentPost.content" name="postContent" rows="5"
+                        required></textarea>
+                </div>
+                <button type="submit" class="cute-button submit-button" [disabled]="isSaving">
+                    <span *ngIf="isSaving" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    {{ isSaving ? 'Đang lưu...' : (isEditMode ? 'Cập nhật' : 'Đăng bài') }}
+                </button>
+                <div *ngIf="dialogErrorMessage" class="error-message-dialog">{{ dialogErrorMessage }}</div>
+            </form>
+        </div>
+    </ng-template>
+</div>
+<app-footer></app-footer>

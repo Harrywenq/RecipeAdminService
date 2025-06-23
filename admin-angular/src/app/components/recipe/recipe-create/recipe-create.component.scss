@@ -1,0 +1,124 @@
+.recipe-form {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 30px;
+  background: #fdfdfd;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", sans-serif;
+
+  .form-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #3b82f6;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .error {
+      margin-top: 5px;
+      color: #e11d48;
+      font-size: 0.875rem;
+    }
+  }
+
+  .file-upload input {
+    padding: 8px 0;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #3b82f6;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    margin-bottom: 8px;
+
+    &:hover:not(:disabled) {
+      background-color: #2563eb;
+    }
+
+    &:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+  }
+
+  .message {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: green;
+
+    &.error {
+      color: #e11d48;
+    }
+  }
+}
+
+.image-preview {
+  margin-top: 10px;
+
+  &.multiple {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  img.preview-image {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btn-back {
+  width: 100%;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+}
